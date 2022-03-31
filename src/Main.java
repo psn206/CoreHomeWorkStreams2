@@ -17,23 +17,25 @@ public class Main {
             );
         }
 
+        System.out.println(persons);
         long underage = persons.stream()
                 .filter(person -> person.getAge() < 18)
                 .count();
         System.out.println("Количество несовершеннолетних: " + underage);
         List<String> conscript = persons.stream()
-                .filter(person -> person.getAge() > 18)
+                .filter(person -> person.getAge() >= 18)
                 .filter(person -> person.getSex() == Sex.MAN)
                 .map(person -> person.getFamily())
                 .collect(Collectors.toList());
 //        System.out.println("Призывники: " +  conscript);
         List<String> worker = persons.stream()
-                .filter(person -> person.getAge() > 18)
+                .filter(person -> person.getAge() >= 18 && person.getAge() <= 65 )
                 .filter(person -> person.getEducation() == Education.HIGHER)
-                .map(person -> person.getFamily())
+                .filter(person -> person.getAge() <= 60 || person.getSex() == Sex.MAN )
+                .map(person -> person.toString())
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
-//        System.out.println("Работники с высшим образованием: " + worker);
+//        System.out.println("Работники : " + worker);
 
 
 
